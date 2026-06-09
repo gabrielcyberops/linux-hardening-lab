@@ -216,3 +216,64 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+# ==================================================
+
+# Linux Hardening Lab
+
+# Security and Infrastructure Exclusions
+
+# ==================================================
+
+# Logs
+
+*.log
+logs/
+
+# Backup files
+
+*.bak
+*.old
+*.backup
+*.tmp
+
+# Linux temporary files
+
+*~
+*.swp
+
+# SSH Keys
+
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
+*.pem
+*.key
+
+# Environment files
+
+.env
+
+# Security and audit outputs
+
+audit-output/
+scan-results/
+security-reports/
+
+# Archives
+
+*.zip
+*.tar
+*.gz
+*.7z
+
+# Visual Studio Code
+
+.vscode/
+
+# Operating System files
+
+.DS_Store
+Thumbs.db
