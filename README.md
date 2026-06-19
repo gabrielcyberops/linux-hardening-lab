@@ -1,115 +1,171 @@
 # Linux Hardening Lab - Ubuntu Server 24.04 LTS
 
-## 1. Descripción General
+## Descripción
 
-Este repositorio documenta la implementación y validación de controles de hardening sobre Ubuntu Server 24.04 LTS, siguiendo buenas prácticas de administración segura y reducción de superficie de ataque utilizadas en entornos empresariales.
+Este laboratorio documenta la implementación y validación de controles de hardening sobre **Ubuntu Server 24.04 LTS**, aplicando buenas prácticas de administración segura utilizadas en entornos Linux.
 
-El laboratorio fue diseñado con foco en seguridad defensiva, administración de sistemas Linux y documentación técnica orientada a operaciones e infraestructura.
+El proyecto se centra en reducir la superficie de ataque del servidor, fortalecer los mecanismos de acceso, proteger servicios expuestos y validar técnicamente cada control implementado mediante procedimientos reproducibles y evidencia documental.
 
-Cada control implementado incluye su justificación técnica, riesgo mitigado, impacto operativo y procedimiento de validación.
-
----
-
-## 2. Objetivos del Proyecto
-
-Los objetivos principales de este laboratorio son:
-
-* Reducir la superficie de ataque del sistema.
-* Fortalecer los mecanismos de acceso remoto.
-* Implementar controles de protección frente a ataques automatizados.
-* Mejorar la visibilidad y capacidad de auditoría del sistema.
-* Documentar controles de seguridad de forma reproducible y profesional.
-
----
-
-## 3. Alcance del Laboratorio
-
-El proyecto contempla la implementación de los siguientes controles:
-
-* Hardening de OpenSSH.
-* Configuración de UFW (Uncomplicated Firewall).
-* Implementación de Fail2Ban.
-* Gestión segura de usuarios y privilegios.
-* Auditoría y revisión de registros.
-* Validación técnica de los controles implementados.
-
----
-
-## 4. Entorno Implementado
-
-| Componente                     | Tecnología                              |
-| ------------------------------ | --------------------------------------- |
-| Sistema Operativo              | Ubuntu Server 24.04 LTS                 |
-| Acceso Remoto                  | OpenSSH                                 |
-| Firewall                       | UFW                                     |
-| Protección contra fuerza bruta | Fail2Ban                                |
-| Auditoría                      | Logs del sistema y herramientas nativas |
-
----
-
-## 5. Controles de Seguridad
-
-| Control         | Objetivo                                   |
-| --------------- | ------------------------------------------ |
-| SSH Hardening   | Reducir riesgos asociados al acceso remoto |
-| UFW             | Restringir tráfico no autorizado           |
-| Fail2Ban        | Mitigar ataques automatizados              |
-| User Management | Aplicar principios de mínimo privilegio    |
-| Audit & Logging | Mejorar trazabilidad y monitoreo           |
-
----
-
-## 6. Estructura del Repositorio
-
-```text
-linux-hardening-lab/
-├── docs/
-├── configs/
-├── scripts/
-└── reports/
-```
-
-### Descripción
-
-* docs/: documentación técnica, decisiones de diseño y validaciones.
-* configs/: configuraciones endurecidas utilizadas durante el laboratorio.
-* scripts/: automatización y validaciones básicas.
-* reports/: reportes de evaluación inicial y resultados finales.
-
----
-
-## 7. Metodología
-
-Cada control implementado sigue el siguiente proceso:
+Cada módulo sigue un flujo de trabajo consistente basado en:
 
 1. Identificación del riesgo.
-2. Evaluación del impacto potencial.
-3. Implementación de la mitigación.
+2. Auditoría del estado inicial.
+3. Implementación del control.
 4. Validación técnica.
 5. Documentación de resultados.
 
 ---
 
-## 8. Validación
+## Objetivos
 
-Los controles son verificados mediante:
-
-* Revisión de configuración.
-* Validación funcional.
-* Análisis de logs.
-* Scripts de comprobación.
-* Evidencia documental.
+- Reducir la superficie de ataque del servidor.
+- Fortalecer el acceso remoto mediante OpenSSH.
+- Implementar protección contra ataques automatizados.
+- Aplicar el principio de mínimo privilegio en la administración de usuarios.
+- Mejorar la capacidad de auditoría mediante registros del sistema.
+- Documentar cada implementación de forma reproducible.
 
 ---
 
-## 9. Objetivo Profesional
+## Tecnologías Utilizadas
+
+| Componente | Tecnología |
+|------------|------------|
+| Sistema Operativo | Ubuntu Server 24.04 LTS |
+| Acceso Remoto | OpenSSH |
+| Firewall | UFW |
+| Protección contra fuerza bruta | Fail2Ban |
+| Gestión de usuarios | sudo |
+| Auditoría | systemd-journald |
+
+---
+
+## Controles Implementados
+
+- SSH Hardening
+- Configuración de UFW
+- Implementación de Fail2Ban
+- Gestión segura de usuarios y privilegios
+- Auditoría y revisión de registros
+- Validación técnica de controles
+
+---
+
+## Flujo de Seguridad
+
+El siguiente diagrama resume cómo interactúan los controles implementados durante el laboratorio.
+
+```text
+                    Cliente Remoto
+                          │
+                          ▼
+                 ┌─────────────────┐
+                 │   Firewall UFW  │
+                 │ Política: Deny  │
+                 └────────┬────────┘
+                          │
+                  Permite TCP/22
+                          │
+                          ▼
+                 ┌─────────────────┐
+                 │  Servidor SSH   │
+                 └────────┬────────┘
+                          │
+          Intentos fallidos de acceso
+                          ▼
+                 ┌─────────────────┐
+                 │    Fail2Ban     │
+                 │ Bloqueo temporal│
+                 └────────┬────────┘
+                          │
+                          ▼
+                 ┌─────────────────┐
+                 │ Ubuntu Server   │
+                 │ 24.04 LTS       │
+                 └────────┬────────┘
+                          │
+                          ▼
+                 ┌─────────────────┐
+                 │ systemd-journald│
+                 │ Auditoría Logs  │
+                 └─────────────────┘
+```
+
+---
+
+## Estructura del Repositorio
+
+```text
+linux-hardening-lab/
+│
+├── configs/
+│   ├── ssh/
+│   └── fail2ban/
+│
+├── docs/
+│   └── hardening/
+│
+├── reports/
+│
+├── scripts/
+│   └── validate-hardening.sh
+│
+└── README.md
+```
+
+## Descripción
+
+**configs/**
+
+Configuraciones endurecidas utilizadas durante el laboratorio.
+
+**docs/**
+
+Documentación técnica de cada control implementado.
+
+**reports/**
+
+Reportes de evaluación inicial y resultados finales del laboratorio.
+
+**scripts/**
+
+Scripts de validación utilizados para comprobar el estado de los controles implementados.
+---
+
+## Metodología de Implementación
+
+Cada módulo del laboratorio sigue el mismo proceso de trabajo:
+
+- Identificación del riesgo.
+- Auditoría inicial.
+- Implementación del control.
+- Validación funcional.
+- Documentación técnica.
+
+Este enfoque busca reproducir una metodología similar a la utilizada durante tareas de administración e infraestructura en entornos Linux.
+
+---
+
+## Validación
+
+Los controles implementados fueron verificados mediante:
+
+- Revisión de configuración.
+- Validación funcional.
+- Comprobación de servicios.
+- Auditoría mediante registros del sistema.
+- Evidencia documental.
+
+---
+
+## Perfil Profesional
 
 Este laboratorio forma parte de un portfolio orientado a:
 
-* Blue Team
-* Security Operations Center (SOC)
-* Identity & Access Management (IAM)
-* Linux System Administration
-* Infrastructure Security
+- Blue Team
+- Security Operations Center (SOC)
+- Linux System Administration
+- Infrastructure Security
+- Identity & Access Management (IAM)
 
-La documentación busca reflejar procesos de implementación, validación y análisis similares a los utilizados en entornos corporativos reales.
+Su propósito es demostrar la implementación práctica de controles básicos de hardening y su correspondiente proceso de validación, priorizando una documentación clara, reproducible y alineada con buenas prácticas de administración de sistemas Linux.
