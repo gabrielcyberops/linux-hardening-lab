@@ -85,10 +85,10 @@ El siguiente diagrama resume cómo interactúan los controles implementados dura
                  └────────┬────────┘
                           │
                           ▼
-                 ┌─────────────────┐
-                 │ systemd-journald│
-                 │ Auditoría Logs  │
-                 └─────────────────┘
+                 ┌────────────────────┐
+                 │ systemd-journald   │
+                 │ Logs de Auditoría  │
+                 └────────────────────┘
 ```
 
 ---
